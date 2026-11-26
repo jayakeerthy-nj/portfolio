@@ -6,10 +6,7 @@ import {
   ArrowRight, 
   ExternalLink, 
   Github, 
-  Code2, 
   Monitor, 
-  Copy, 
-  Check,
   FolderOpen,
   Layers,
   TableProperties,
@@ -54,17 +51,9 @@ const THEME_ART_FULLSTACK: ArtRecipe = {
 export const ProjectsSection: React.FC = () => {
   const [selectedProjectId, setSelectedProjectId] = useState<string>(PROJECTS[0].id);
   const [viewTab, setViewTab] = useState<'folders' | 'deck' | 'table'>('folders');
-  const [copiedCode, setCopiedCode] = useState(false);
-  const [consoleMode, setConsoleMode] = useState<'preview' | 'code'>('preview');
   
   const consoleRef = useRef<HTMLDivElement>(null);
   const selectedProject = PROJECTS.find(p => p.id === selectedProjectId) || PROJECTS[0];
-
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(selectedProject.codeSnippet);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
 
   const scrollToConsole = (projectId?: string) => {
     if (projectId) {
@@ -76,7 +65,7 @@ export const ProjectsSection: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="relative border-b border-dashed border-white/[0.08] py-16 md:py-24 bg-[#111113] overflow-hidden">
+    <section id="projects" className="relative border-b border-dashed border-white/[0.08] py-12 md:py-16 bg-[#111113] overflow-hidden">
       {/* Background ASCII Pattern */}
       <div className="absolute inset-0 pointer-events-none select-none opacity-15 font-mono text-xs text-zinc-500">
         <div className="absolute top-10 right-1/4">/* ==================== SELECTED_PROJECTS ==================== */</div>
@@ -96,16 +85,11 @@ export const ProjectsSection: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-3 border-b border-dashed border-white/[0.08]">
           <div>
             <div className="flex items-center space-x-2 font-mono text-xs text-[#a1a1a6] mb-1.5">
-              <span className="text-[#ededed] font-medium">// 04. PROJECTS &amp; ARTIFACTS</span>
-              <span>•</span>
-              <span className="text-[#9ca3af]">scope: &quot;Real Engineering Implementations&quot;</span>
+              <span className="text-[#ededed] font-medium">// 02. PROJECTS</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-[#ededed]">
-              Featured Engineering <TechText text="Projects" className="italic text-[#a1a1a6]" />
+              Selected <TechText text="Projects" className="italic text-[#a1a1a6]" />
             </h2>
-            <p className="text-[#a1a1a6] text-sm font-mono mt-1">
-              Real code, verified datasets, game theory algorithms &amp; enterprise LLMs.
-            </p>
           </div>
 
           {/* View Mode Tabs (Glass Folders / 3D Tumble Deck / Data Matrix) */}
@@ -167,12 +151,9 @@ export const ProjectsSection: React.FC = () => {
               }}
             />
 
-            <div className="relative z-10 flex flex-col items-center mb-6">
-              <span className="px-2.5 py-0.5 rounded-full bg-white/[0.06] border border-white/[0.08] text-[10px] font-mono text-[#a1a1a6] uppercase tracking-wider mb-2">
-                Physical Object Simulation • Frosted Glass
-              </span>
-              <p className="font-mono text-xs text-[#9ca3af] text-center max-w-md">
-                Hover to lean forward · Click folder to open &amp; fan out files · Click any sheet to inspect code
+            <div className="relative z-10 flex flex-col items-center mb-5">
+              <p className="font-mono text-xs text-[#71717a] text-center">
+                Click a folder to open &amp; select a project
               </p>
             </div>
 
@@ -180,9 +161,9 @@ export const ProjectsSection: React.FC = () => {
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 items-end justify-items-center">
               {/* Folder 1: AI & GenAI Lab */}
               <GlassFolder
-                key="folder-genai-v2"
+                key="folder-genai-v3"
                 label="AI & GenAI Lab"
-                meta="2 projects · RAG & LLM"
+                meta="3 projects · RAG, LLM & Risk"
                 tone="dark"
                 art={THEME_ART_GENAI}
                 seed={101}
@@ -191,18 +172,20 @@ export const ProjectsSection: React.FC = () => {
                 files={[
                   { name: "ai-vaidya-rag.py", meta: "RAG · 96.4% Acc" },
                   { name: "ibm-granite-finance.py", meta: "LLM · 98.1% Acc" },
+                  { name: "banking-churn-risk.py", meta: "AI · SHAP & ML" },
                 ]}
                 onFileSelect={(file) => {
                   if (file.name.includes("vaidya")) scrollToConsole("ai-vaidya");
                   else if (file.name.includes("finance")) scrollToConsole("finance-chatbot");
+                  else if (file.name.includes("churn")) scrollToConsole("banking-churn-analytics");
                 }}
               />
 
               {/* Folder 2: ML & Game Theory */}
               <GlassFolder
-                key="folder-ml-v2"
+                key="folder-ml-v3"
                 label="ML & Game Theory"
-                meta="2 projects · IEEE Award"
+                meta="3 projects · IEEE Award"
                 tone="dark"
                 art={THEME_ART_ML}
                 seed={202}
@@ -211,10 +194,12 @@ export const ProjectsSection: React.FC = () => {
                 files={[
                   { name: "polaris-policy-ml.py", meta: "ML · 0.924 F1" },
                   { name: "ai-chess-rival.py", meta: "Minimax · IEEE 4th" },
+                  { name: "banking-churn-risk.py", meta: "ML · SHAP" },
                 ]}
                 onFileSelect={(file) => {
                   if (file.name.includes("polaris")) scrollToConsole("polaris-predictor");
                   else if (file.name.includes("chess")) scrollToConsole("ai-chess-rival");
+                  else if (file.name.includes("churn")) scrollToConsole("banking-churn-analytics");
                 }}
               />
 
@@ -337,115 +322,96 @@ export const ProjectsSection: React.FC = () => {
           </div>
         )}
 
-        {/* ================= 2. PROJECT DETAIL & CODE PREVIEW (FINE THOUGHT STYLE) ================= */}
+        {/* ================= 2. PROJECT SUMMARY & PREVIEW ================= */}
         <div ref={consoleRef} className="pt-4">
-          <div className="flex items-center justify-between mb-4 font-mono text-xs text-[#a1a1a6]">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4 font-mono text-xs text-[#a1a1a6]">
             <div className="flex items-center space-x-2">
-              <span className="text-[#ededed] font-medium">// ACTIVE WORKSPACE CONSOLE</span>
+              <span className="text-[#ededed] font-medium">// SELECTED PROJECT</span>
               <span className="text-zinc-600">•</span>
               <span className="text-emerald-400 font-semibold">{selectedProject.name}</span>
             </div>
 
-            <div role="tablist" aria-label="Console view modes" className="flex items-center space-x-1.5">
-              <button
-                role="tab"
-                aria-selected={consoleMode === 'preview'}
-                onClick={() => setConsoleMode('preview')}
-                className={`px-3 py-1 rounded text-xs transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
-                  consoleMode === 'preview'
-                    ? 'bg-[#212126] text-[#ededed] font-medium border border-white/[0.08]'
-                    : 'text-[#9ca3af] hover:text-[#ededed]'
-                }`}
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span>Simulated Monitor</span>
-              </button>
-              <button
-                role="tab"
-                aria-selected={consoleMode === 'code'}
-                onClick={() => setConsoleMode('code')}
-                className={`px-3 py-1 rounded text-xs transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ${
-                  consoleMode === 'code'
-                    ? 'bg-[#212126] text-[#ededed] font-medium border border-white/[0.08]'
-                    : 'text-[#9ca3af] hover:text-[#ededed]'
-                }`}
-              >
-                <Code2 className="w-3.5 h-3.5" />
-                <span>Source Code</span>
-              </button>
-            </div>
+            <span className="text-[11px] text-[#9ca3af]">
+              {selectedProject.category}
+            </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-[#161619] border border-white/[0.08] rounded-xl overflow-hidden shadow-2xl p-4 sm:p-6">
-            {/* Left Column: Code Editor Tab with Status Box */}
-            <div className="lg:col-span-5 space-y-4">
-              {/* Mock Code Tab Bar */}
-              <div className="flex items-center justify-between px-3 h-10 bg-[#0d0d0e] border border-white/[0.08] rounded-lg font-mono text-xs">
-                <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-zinc-400"></span>
-                  <span className="text-[#ededed] font-medium">{selectedProject.filename}</span>
-                </div>
-                <button
-                  onClick={handleCopyCode}
-                  aria-label="Copy source code to clipboard"
-                  className="flex items-center space-x-1 text-[#9ca3af] hover:text-[#ededed] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded px-1.5 py-0.5"
-                >
-                  {copiedCode ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400 text-[11px]">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span className="text-[11px]">Copy</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* Status Box */}
-              <div className="p-3 bg-[#1c1c20] rounded-lg border border-white/[0.06] text-xs font-mono text-[#a1a1a6] space-y-1">
-                <div className="flex items-center space-x-1.5 text-emerald-400 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>Verified BMSIT AIML Lab Pipeline</span>
-                </div>
-                <p className="text-[#9ca3af] text-[11px]">
-                  Author: N J Jayakeerthy (CGPA 9.13 • BMSIT Batch 2028)
-                </p>
+            {/* Left Column: Project Summary & GitHub Link */}
+            <div className="lg:col-span-5 flex flex-col justify-between space-y-5">
+              <div className="bg-[#111113] p-5 rounded-xl border border-white/[0.06] space-y-4 flex-1">
                 {selectedProject.award && (
-                  <div className="text-amber-300 text-[11px] pt-0.5 flex items-center gap-1 font-semibold">
-                    <Award className="w-3.5 h-3.5" /> {selectedProject.award}
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-mono font-semibold">
+                    <Award className="w-3.5 h-3.5" />
+                    <span>{selectedProject.award}</span>
                   </div>
                 )}
-              </div>
 
-              {/* Monospace Code Body or Syntax View */}
-              <div className="bg-[#111113] p-4 rounded-lg border border-white/[0.06] font-mono text-xs text-[#a1a1a6] max-h-96 overflow-y-auto">
-                <pre className="overflow-x-auto leading-relaxed text-[11.5px] font-mono text-[#ededed]">
-                  <code>{selectedProject.codeSnippet}</code>
-                </pre>
+                <div>
+                  <h3 className="text-base sm:text-lg font-semibold text-[#ededed] mb-2 leading-snug">
+                    {selectedProject.tagline}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-[#a1a1a6] leading-relaxed">
+                    {selectedProject.description}
+                  </p>
+                </div>
+
+                {/* Highlights List */}
+                <div className="space-y-1.5 pt-3 border-t border-dashed border-white/[0.08]">
+                  <span className="text-[10px] font-mono text-[#9ca3af] uppercase tracking-wider block">
+                    Engineering Milestones &amp; Features:
+                  </span>
+                  {selectedProject.highlights.map((h, i) => (
+                    <div key={i} className="flex items-start space-x-2 text-xs font-sans text-[#a1a1a6]">
+                      <span className="text-[#ededed] font-mono mt-0.5">-&gt;</span>
+                      <span>{h}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tech Stack Pills */}
+                <div className="pt-3 border-t border-dashed border-white/[0.08] flex flex-wrap gap-1.5">
+                  {selectedProject.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 rounded-md bg-[#161619] border border-white/[0.08] text-[#ededed] font-mono text-[11px]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               {/* External Repo Links */}
-              <div className="pt-2 flex items-center space-x-3">
+              <div className="flex items-center gap-3">
                 <a
                   href={selectedProject.links.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 py-2 px-3 rounded-lg bg-[#212126] hover:bg-[#28282f] border border-white/[0.08] text-xs font-mono text-[#ededed] flex items-center justify-center space-x-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                  className="flex-1 py-2.5 px-4 rounded-lg bg-[#212126] hover:bg-[#28282f] border border-white/[0.08] hover:border-white/[0.18] text-xs font-mono text-[#ededed] flex items-center justify-center space-x-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                 >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>GitHub Repository</span>
-                  <ExternalLink className="w-3 h-3 text-[#9ca3af]" />
+                  <Github className="w-4 h-4" />
+                  <span>View on GitHub</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-[#9ca3af]" />
                 </a>
+                {selectedProject.links.demo && (
+                  <a
+                    href={selectedProject.links.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="py-2.5 px-4 rounded-lg bg-[#111113] hover:bg-[#1c1c20] border border-white/[0.08] hover:border-white/[0.18] text-xs font-mono text-[#ededed] flex items-center justify-center space-x-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                  >
+                    <span>Live Demo</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#9ca3af]" />
+                  </a>
+                )}
               </div>
             </div>
 
             {/* Right Column: Visual Monitor / Project Screenshot Preview */}
-            <div className="lg:col-span-7 space-y-4">
+            <div className="lg:col-span-7">
               {/* Browser / Visual Frame */}
-              <div className="bg-[#0d0d0e] rounded-xl border border-white/[0.08] overflow-hidden shadow-inner">
+              <div className="bg-[#0d0d0e] rounded-xl border border-white/[0.08] overflow-hidden shadow-inner h-full flex flex-col">
                 {/* Frame Header */}
                 <div className="px-4 py-2.5 bg-[#161619] border-b border-white/[0.08] flex items-center justify-between text-xs font-mono text-[#9ca3af]">
                   <div className="flex items-center space-x-2">
@@ -462,18 +428,18 @@ export const ProjectsSection: React.FC = () => {
                 </div>
 
                 {/* Screenshot Display or Upload Ready Placeholder */}
-                <div className="p-3 sm:p-4">
+                <div className="p-3 sm:p-4 flex-1 flex items-center justify-center">
                   {selectedProject.image ? (
-                    <div className="relative group overflow-hidden rounded-lg bg-[#111113] border border-white/[0.06]">
+                    <div className="relative group overflow-hidden rounded-lg bg-[#111113] border border-white/[0.06] w-full">
                       <img
                         src={selectedProject.image}
                         alt={`${selectedProject.name} Screenshot`}
-                        className="w-full h-auto object-cover object-top max-h-[480px] rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
+                        className="w-full h-auto object-cover object-top max-h-[500px] rounded-lg transition-transform duration-300 group-hover:scale-[1.01]"
                         loading="lazy"
                       />
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center justify-center py-20 px-6 text-center rounded-lg bg-[#111113] border border-dashed border-white/[0.08]">
+                    <div className="flex flex-col items-center justify-center w-full py-24 px-6 text-center rounded-lg bg-[#111113] border border-dashed border-white/[0.08]">
                       <div className="p-3 rounded-xl bg-[#161619] border border-white/[0.08] text-[#71717a] mb-3">
                         <Monitor className="w-6 h-6" />
                       </div>
@@ -485,43 +451,6 @@ export const ProjectsSection: React.FC = () => {
                       </p>
                     </div>
                   )}
-                </div>
-              </div>
-
-              {/* Project Architectural Specs & Highlights */}
-              <div className="bg-[#111113] p-5 rounded-xl border border-white/[0.06] space-y-4">
-                <div>
-                  <h3 className="text-base font-semibold text-[#ededed] mb-1">
-                    {selectedProject.tagline}
-                  </h3>
-                  <p className="text-xs text-[#a1a1a6] leading-relaxed">
-                    {selectedProject.description}
-                  </p>
-                </div>
-
-                {/* Highlights List */}
-                <div className="space-y-1.5 pt-2 border-t border-dashed border-white/[0.08]">
-                  <span className="text-[10px] font-mono text-[#9ca3af] uppercase tracking-wider block">
-                    Engineering Milestones &amp; Features:
-                  </span>
-                  {selectedProject.highlights.map((h, i) => (
-                    <div key={i} className="flex items-start space-x-2 text-xs font-sans text-[#a1a1a6]">
-                      <span className="text-[#ededed] font-mono mt-0.5">-&gt;</span>
-                      <span>{h}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tech Stack Pills */}
-                <div className="pt-2 border-t border-dashed border-white/[0.08] flex flex-wrap gap-1.5">
-                  {selectedProject.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-1 rounded-md bg-[#161619] border border-white/[0.08] text-[#ededed] font-mono text-[11px]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>

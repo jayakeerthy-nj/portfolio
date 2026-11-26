@@ -31,10 +31,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenResume, ac
 
   const navItems = [
     { label: 'jayakeerthy.tsx', href: '#hero', section: 'hero' },
-    { label: 'about.md', href: '#about', section: 'about' },
-    { label: 'skills.json', href: '#skills', section: 'skills' },
     { label: 'projects.py', href: '#projects', section: 'projects' },
-    { label: 'interests.ai', href: '#interests', section: 'interests' },
+    { label: 'skills.json', href: '#skills', section: 'skills' },
+    { label: 'about.md', href: '#about', section: 'about' },
     { label: 'journey.log', href: '#journey', section: 'journey' },
     { label: 'contact.sh', href: '#contact', section: 'contact' },
   ];

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { LineNumbers } from './components/LineNumbers';
 import { Hero } from './components/Hero';
-import { AboutProfile } from './components/AboutProfile';
-import { SkillsSection } from './components/SkillsSection';
 import { ProjectsSection } from './components/ProjectsSection';
-import { AreasOfInterest } from './components/AreasOfInterest';
+import { SkillsSection } from './components/SkillsSection';
+import { AboutProfile } from './components/AboutProfile';
 import { JourneyTimeline } from './components/JourneyTimeline';
 import { CertificationsSection } from './components/CertificationsSection';
 import { ContactSection } from './components/ContactSection';
@@ -23,7 +22,7 @@ export const App: React.FC = () => {
     let ticking = false;
 
     const updateActiveSection = () => {
-      const sections = ['hero', 'about', 'skills', 'projects', 'interests', 'journey', 'contact'];
+      const sections = ['hero', 'projects', 'skills', 'about', 'journey', 'contact'];
       const scrollPos = window.scrollY + 250;
 
       for (const sectionId of sections) {
@@ -83,10 +82,9 @@ export const App: React.FC = () => {
             onOpenTerminal={() => setTerminalOpen(true)}
             onOpenResume={() => setResumeOpen(true)}
           />
-          <AboutProfile />
-          <SkillsSection />
           <ProjectsSection />
-          <AreasOfInterest />
+          <SkillsSection />
+          <AboutProfile />
           <JourneyTimeline />
           <CertificationsSection />
           <ContactSection />

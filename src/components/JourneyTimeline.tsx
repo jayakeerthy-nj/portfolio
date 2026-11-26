@@ -4,27 +4,16 @@ import { JOURNEY } from '../data/portfolioData';
 
 export const JourneyTimeline: React.FC = () => {
   return (
-    <section id="journey" className="relative border-b border-dashed border-white/[0.08] py-16 md:py-24 bg-[#111113]">
-      {/* Background ASCII Pattern */}
-      <div className="absolute inset-0 pointer-events-none select-none opacity-15 font-mono text-xs text-zinc-500">
-        <div className="absolute top-12 left-1/3">/// git log --graph --oneline --decorate --all</div>
-        <div className="absolute bottom-10 right-20">// ==================== MILESTONES ====================</div>
-      </div>
-
+    <section id="journey" className="relative border-b border-dashed border-white/[0.08] py-12 md:py-16 bg-[#111113]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12 pb-3 border-b border-dashed border-white/[0.08]">
-          <div className="flex items-center space-x-2 font-mono text-xs text-[#a1a1a6] mb-2">
-            <span className="text-[#ededed] font-medium">// 06. TIMELINE</span>
-            <span>•</span>
-            <span className="text-[#9ca3af]">branch: &quot;main@bmsit&quot;</span>
+        <div className="mb-8 pb-3 border-b border-dashed border-white/[0.08]">
+          <div className="flex items-center space-x-2 font-mono text-xs text-[#a1a1a6] mb-1.5">
+            <span className="text-[#ededed] font-medium">// 05. TIMELINE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal tracking-tight text-[#ededed]">
-            Engineering Journey &amp; <span className="italic text-[#a1a1a6]">Milestones</span>
+          <h2 className="text-3xl sm:text-4xl font-serif font-normal tracking-tight text-[#ededed]">
+            Engineering <span className="italic text-[#a1a1a6]">Milestones</span>
           </h2>
-          <p className="text-[#a1a1a6] text-sm font-mono mt-1 max-w-2xl">
-            Focused on technical skill development, engineering projects, and opportunities to gain industry experience in AI/ML and software engineering.
-          </p>
         </div>
 
         {/* Timeline Stack */}

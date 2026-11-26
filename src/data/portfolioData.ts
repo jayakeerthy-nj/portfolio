@@ -150,7 +150,7 @@ class AIVaidyaRAGEngine:
             "confidence_score": 1.0 - float(np.mean(passages['distances'][0]))
         }`,
     links: {
-      github: "https://github.com/jayakeerthy-nj/ai-vaidya",
+      github: "https://github.com/jayakeerthy-nj/AIvaidya.git",
       demo: "#"
     }
   },
@@ -217,7 +217,7 @@ class PolarisPolicyEvaluator:
             "expected_adoption_rate": f"{round((1 - risk_proba) * 100, 1)}%"
         }`,
     links: {
-      github: "https://github.com/jayakeerthy-nj/polaris-policy-predictor",
+      github: "https://github.com/jayakeerthy-nj/policy_predictor.git",
       demo: "#"
     }
   },
@@ -288,7 +288,7 @@ class AIChessEngine:
                     break  # Alpha cut-off
             return min_eval`,
     links: {
-      github: "https://github.com/jayakeerthy-nj/ai-chess-rival",
+      github: "https://github.com/jayakeerthy-nj/wop.git",
       demo: "#"
     }
   },
@@ -337,7 +337,7 @@ Current Savings Rate: {savings_rate * 100:.1f}%
 Generate an actionable financial optimization blueprint:"""
         return self._query_granite(prompt)`,
     links: {
-      github: "https://github.com/jayakeerthy-nj/personal-finance-chatbot",
+      github: "https://github.com/ULLAS187/FinanceChatbot.git",
       demo: "#"
     }
   },
@@ -384,7 +384,7 @@ Generate an actionable financial optimization blueprint:"""
             "disclaimer": self.disclaimer
         }`,
     links: {
-      github: "https://github.com/jayakeerthy-nj/public-health-bot",
+      github: "",
       demo: "#"
     }
   },
@@ -432,8 +432,34 @@ export const filterEligibleCandidates = (
   ));
 };`,
     links: {
-      github: "https://github.com/jayakeerthy-nj/campushire-system",
+      github: "https://github.com/jayakeerthy-nj/CampusHire.git",
       demo: "#"
+    }
+  },
+  {
+    id: "banking-churn-analytics",
+    name: "Banking Customer Risk & Churn Analytics",
+    filename: "banking-churn-risk.py",
+    category: "AI / ML & Explainable Risk Analytics",
+    tagline: "Enterprise analytics and decision platform predicting retail banking customer attrition with SHAP explainability",
+    description: "Banking Risk Intelligence monitors, predicts, and mitigates retail banking customer attrition. Using calibrated machine learning models, behavioral segmentation, and SHAP explainability, it identifies high-value at-risk customers and surfaces prescriptive retention recommendations to relationship managers and risk committees.",
+    highlights: [
+      "Calibrated ML models predicting customer churn probability with high precision",
+      "SHAP explainability exposing underlying behavioral drivers of account attrition",
+      "Behavioral segmentation prioritizing high-value at-risk banking customers",
+      "Prescriptive retention recommendations for relationship managers and risk committees"
+    ],
+    techStack: ["Python", "Scikit-Learn", "SHAP", "Pandas", "Machine Learning", "Risk Analytics"],
+    techSummary: "Python + Calibrated ML + SHAP",
+    stats: [
+      { label: "Explainability", value: "SHAP" },
+      { label: "Modeling", value: "Calibrated ML" },
+      { label: "Domain", value: "Retail Banking" }
+    ],
+    previewType: "churn",
+    codeSnippet: "",
+    links: {
+      github: "https://github.com/jayakeerthy-nj/MiniP_ChurnAnalysis.git"
     }
   }
 ];
