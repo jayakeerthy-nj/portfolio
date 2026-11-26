@@ -43,12 +43,12 @@ export const ShapeWaves: React.FC<ShapeWavesProps> = ({ className = '' }) => {
     canvas.parentElement?.addEventListener('mouseleave', handleMouseLeave);
 
     let time = 0;
-    const spacing = 32; // Clean 4px grid multiple
+    const spacing = 36;
     let isVisible = true;
 
     const render = () => {
       if (!isVisible) return;
-      time += 0.015;
+      time += 0.012;
       ctx.clearRect(0, 0, width, height);
 
       const cols = Math.floor(width / spacing);
@@ -56,82 +56,46 @@ export const ShapeWaves: React.FC<ShapeWavesProps> = ({ className = '' }) => {
       const offsetX = (width - cols * spacing) / 2;
       const offsetY = (height - rows * spacing) / 2;
 
-      // Draw geometric shape field in quiet graphite
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
           const x = offsetX + i * spacing + spacing / 2;
           const y = offsetY + j * spacing + spacing / 2;
 
-          // Gentle rolling wave
-          const wave = Math.sin(time + (i * 0.12) + (j * 0.1));
-          
-          // Distance from cursor
+          const wave = Math.sin(time + i * 0.14 + j * 0.12);
           const dx = mouseX - x;
           const dy = mouseY - y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          const cursorFactor = Math.max(0, 1 - dist / 160);
+          const cursorFactor = Math.max(0, 1 - dist / 150);
 
-          // Central code glyph bracket mask: `</>`
-          const normX = (x / width - 0.5) * 2;
-          const normY = (y / height - 0.5) * 2;
-          const isLeftBracket = Math.abs(normX + 0.35 + Math.abs(normY) * 0.5) < 0.11 && Math.abs(normY) < 0.55;
-          const isRightBracket = Math.abs(normX - 0.35 - Math.abs(normY) * 0.5) < 0.11 && Math.abs(normY) < 0.55;
-          const isSlash = Math.abs(normX + normY * 0.3) < 0.07 && Math.abs(normY) < 0.6;
-          const isGlyph = isLeftBracket || isRightBracket || isSlash;
+          const baseAlpha = 0.06 + (wave + 1) * 0.025;
+          const alpha = Math.min(0.7, baseAlpha + cursorFactor * 0.45);
+          const size = 1.6 + wave * 0.4 + cursorFactor * 2.4;
 
-          // Quiet alpha values
-          let baseAlpha = 0.04 + (wave + 1) * 0.02;
-          if (isGlyph) baseAlpha += 0.09;
-          const alpha = Math.min(0.65, baseAlpha + cursorFactor * 0.4);
-
-          let baseSize = 1.8 + wave * 0.5;
-          if (isGlyph) baseSize += 0.8;
-          const size = baseSize + cursorFactor * 2.5;
-
-          // Pure neutral graphite ramp with slight cool tint on cursor proximity
-          const brightness = Math.floor(160 + cursorFactor * 75);
-          ctx.fillStyle = `rgba(${brightness}, ${brightness + 4}, ${brightness + 10}, ${alpha})`;
-
-          // Alternate shapes: 0=Circle, 1=Square, 2=Triangle
-          const shapeType = (i + j) % 3;
-
-          ctx.save();
-          ctx.translate(x, y);
-
-          if (shapeType === 0) {
-            ctx.beginPath();
-            ctx.arc(0, 0, size, 0, Math.PI * 2);
-            ctx.fill();
-          } else if (shapeType === 1) {
-            ctx.fillRect(-size, -size, size * 2, size * 2);
+          // Deep slate #485550 at rest, blending toward crisp lime #C0EB6A on hover proximity
+          if (cursorFactor > 0.25) {
+            ctx.fillStyle = `rgba(140, 195, 52, ${alpha})`;
           } else {
-            ctx.beginPath();
-            ctx.moveTo(0, -size * 1.2);
-            ctx.lineTo(size, size * 0.8);
-            ctx.lineTo(-size, size * 0.8);
-            ctx.closePath();
-            ctx.fill();
+            ctx.fillStyle = `rgba(72, 85, 80, ${alpha})`;
           }
 
-          ctx.restore();
+          ctx.beginPath();
+          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.fill();
         }
       }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    // Pause render loop when scrolled offscreen to conserve CPU/GPU
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
+      (entries) => {
+        isVisible = entries[0]?.isIntersecting ?? true;
         if (isVisible) {
           cancelAnimationFrame(animationFrameId);
-          animationFrameId = requestAnimationFrame(render);
-        } else {
-          cancelAnimationFrame(animationFrameId);
+          render();
         }
       },
-      { threshold: 0 }
+      { threshold: 0.05 }
     );
     observer.observe(canvas);
 
@@ -147,13 +111,10 @@ export const ShapeWaves: React.FC<ShapeWavesProps> = ({ className = '' }) => {
   }, []);
 
   return (
-    <div className={`absolute inset-0 pointer-events-none select-none overflow-hidden ${className}`}>
-      {/* Quiet neutral ambient light (No purple blobs) */}
-      <div 
-        aria-hidden="true" 
-        className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-white/[0.015] blur-[120px] rounded-full pointer-events-none" 
-      />
-      <canvas ref={canvasRef} className="w-full h-full block opacity-80" />
-    </div>
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 w-full h-full z-0 ${className}`}
+    />
   );
 };

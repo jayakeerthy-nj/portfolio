@@ -63,7 +63,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#111113] text-[#ededed] flex flex-col selection:bg-zinc-800 selection:text-white font-sans">
+    <div className="relative min-h-screen bg-[#F4F6F0] text-[#1E2623] flex flex-col selection:bg-[#C0EB6A] selection:text-[#1E2623] font-sans">
       {/* Top IDE Tab Bar / Navbar */}
       <Navbar 
         onOpenTerminal={() => setTerminalOpen(true)}

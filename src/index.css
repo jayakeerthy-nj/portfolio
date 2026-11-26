@@ -3,93 +3,62 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'LTC Bodoni 175';
-  src: local('LTC Bodoni 175'), local('LTC Bodoni 175 Regular'), local('Bodoni 175');
+  font-family: 'PP Neue Montreal';
+  src: local('PP Neue Montreal'), local('Neue Montreal'), local('NeueMontreal-Regular');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP NeueBit';
+  src: local('PP NeueBit'), local('NeueBit'), local('NeueBit-Bold');
   font-display: swap;
 }
 
 @layer base {
   :root {
-    --bg-page: #111113;
-    --bg-card: #161619;
-    --bg-raised: #212126;
-    --border-hairline: rgba(255, 255, 255, 0.08);
-    --text-primary: #ededed;
-    --text-secondary: #a1a1a6;
-    --text-muted: #71717a;
-    --accent-blue: #3b82f6;
+    --bg-page: #F4F6F0;
+    --bg-card: #FFFFFF;
+    --bg-muted: #EAECE4;
+    --ink-primary: #111614;
+    --ink-slate: #485550;
+    --ink-muted: #52605B;
+    --accent-lime: #C0EB6A;
+    --border-hairline: rgba(72, 85, 80, 0.14);
   }
 
   body {
     background-color: var(--bg-page);
-    color: var(--text-primary);
-    font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-    letter-spacing: -0.01em;
+    color: var(--ink-primary);
+    font-family: "PP Neue Montreal", "Neue Montreal", "DM Sans", system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.015em;
   }
 
   h1, h2, h3 {
-    font-family: "LTC Bodoni 175", "Bodoni Moda", "Libre Bodoni", Didot, "Bodoni MT", serif;
-    font-optical-sizing: auto;
-  }
-
-  /* Quiet hairline border utility */
-  .border-hairline {
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .border-hairline-dashed {
-    border-style: dashed;
-    border-color: rgba(255, 255, 255, 0.12);
+    font-family: "PP Neue Montreal", "Neue Montreal", "DM Sans", system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.025em;
   }
 }
 
-/* Custom quiet scrollbar */
+/* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d0d0e;
+  background: #F4F6F0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232328;
+  background: rgba(72, 85, 80, 0.25);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #323238;
+  background: rgba(72, 85, 80, 0.45);
 }
 
-/* Subtle ASCII editor background pattern */
-.bg-ascii-grid {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-/* Finethought brutalist dashed borders */
-.border-dashed-code {
-  border-style: dashed;
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.border-dashed-code-light {
-  border-style: dashed;
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-/* Minimalist Syntax Highlighting */
-.syntax-tag { color: #f87171; }
-.syntax-attr { color: #60a5fa; }
-.syntax-string { color: #34d399; }
-.syntax-comment { color: #71717a; }
-.syntax-keyword { color: #818cf8; }
-.syntax-entity { color: #fbbf24; }
-
-/* 3D Perspective & Tilt container */
+/* 3D Perspective container */
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -98,18 +67,13 @@
   transform-style: preserve-3d;
 }
 
-/* Minimalist Card Hover Lift */
-.card-3d-hover {
+/* Subtle surface lift */
+.card-hover-lift {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.25s ease;
 }
 
-.card-3d-hover:hover {
+.card-hover-lift:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
-}
-
-/* Tech Text Vector Stroke Outline */
-.stroke-text {
-  -webkit-text-stroke: 1.2px #93c5fd;
+  border-color: rgba(72, 85, 80, 0.28);
+  box-shadow: 0 12px 28px -12px rgba(72, 85, 80, 0.14);
 }

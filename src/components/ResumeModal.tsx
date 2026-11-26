@@ -33,29 +33,29 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-5xl h-[92vh] bg-[#111113] border border-white/[0.12] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      <div className="relative w-full max-w-5xl h-[92vh] bg-[#FFFFFF] border border-[#485550]/20 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         {/* Modal Top Bar */}
-        <div className="flex flex-wrap items-center justify-between px-4 py-2.5 min-h-12 bg-[#161619] border-b border-white/[0.08] font-mono text-xs text-[#9ca3af] gap-2 select-none">
+        <div className="flex flex-wrap items-center justify-between px-4 py-2.5 min-h-12 bg-[#F4F6F0] border-b border-[#485550]/15 font-mono text-xs text-[#5C6B65] gap-2 select-none">
           <div className="flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span id="resume-dialog-title" className="font-semibold text-[#ededed]">jayakeerthy_resume.pdf</span>
-            <span className="text-zinc-600 hidden sm:inline">|</span>
-            <span className="text-[#a1a1a6] hidden sm:inline">Official 2-Page Resume • BMSIT AIML</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#C0EB6A] ring-1 ring-[#485550]/30"></span>
+            <span id="resume-dialog-title" className="font-semibold text-[#1E2623]">jayakeerthy_resume.pdf</span>
+            <span className="text-[#485550]/30 hidden sm:inline">|</span>
+            <span className="text-[#485550] hidden sm:inline">Official 2-Page Resume • BMSIT AIML</span>
           </div>
 
           {/* View Mode Toggle & Quick Actions */}
           <div className="flex items-center space-x-2">
-            <div className="flex items-center p-0.5 bg-[#0e0e11] border border-white/[0.08] rounded-lg">
+            <div className="flex items-center p-0.5 bg-[#EAECE4] border border-[#485550]/15 rounded-lg">
               <button
                 type="button"
                 onClick={() => setViewMode('pdf')}
                 className={`flex items-center space-x-1 px-2.5 py-1 rounded text-xs transition-colors ${
                   viewMode === 'pdf'
-                    ? 'bg-[#212126] text-[#ededed] font-medium'
-                    : 'text-[#9ca3af] hover:text-[#ededed]'
+                    ? 'bg-[#FFFFFF] text-[#1E2623] font-medium shadow-xs'
+                    : 'text-[#5C6B65] hover:text-[#1E2623]'
                 }`}
               >
-                <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                <FileText className="w-3.5 h-3.5 text-[#485550]" />
                 <span>PDF Document</span>
               </button>
               <button
@@ -63,11 +63,11 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 onClick={() => setViewMode('summary')}
                 className={`flex items-center space-x-1 px-2.5 py-1 rounded text-xs transition-colors ${
                   viewMode === 'summary'
-                    ? 'bg-[#212126] text-[#ededed] font-medium'
-                    : 'text-[#9ca3af] hover:text-[#ededed]'
+                    ? 'bg-[#FFFFFF] text-[#1E2623] font-medium shadow-xs'
+                    : 'text-[#5C6B65] hover:text-[#1E2623]'
                 }`}
               >
-                <LayoutList className="w-3.5 h-3.5 text-blue-400" />
+                <LayoutList className="w-3.5 h-3.5 text-[#485550]" />
                 <span>Summary</span>
               </button>
             </div>
@@ -76,26 +76,26 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
               href="/jayakeerthy_resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-[#212126] hover:bg-[#28282f] border border-white/[0.08] text-[#ededed] text-xs font-mono transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EAECE4] border border-[#485550]/15 text-[#485550] text-xs font-mono transition-colors"
               title="Open full PDF in a new tab"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
+              <ExternalLink className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Open Tab</span>
             </a>
 
             <a
               href="/jayakeerthy_resume.pdf"
               download="NJ_Jayakeerthy_Resume.pdf"
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#ededed] hover:bg-white text-[#111113] text-xs font-mono font-medium transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#485550] hover:bg-[#38433F] text-[#FFFFFF] text-xs font-mono font-medium transition-colors shadow-xs"
               title="Download actual PDF resume"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-[#C0EB6A]" />
               <span>Download PDF</span>
             </a>
 
             <button
               onClick={onClose}
-              className="w-8 h-8 flex items-center justify-center rounded-lg hover:text-[#ededed] text-[#a1a1a6] hover:bg-white/[0.08] transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none"
+              className="w-8 h-8 flex items-center justify-center rounded-lg hover:text-[#1E2623] text-[#5C6B65] hover:bg-[#485550]/10 transition-colors"
               aria-label="Close dialog"
             >
               <X className="w-4 h-4" />
@@ -104,7 +104,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         </div>
 
         {/* Modal Main Content */}
-        <div className="flex-1 w-full h-full overflow-hidden bg-[#0d0d0e]">
+        <div className="flex-1 w-full h-full overflow-hidden bg-[#F4F6F0]">
           {viewMode === 'pdf' ? (
             <div className="w-full h-full flex flex-col">
               <object
